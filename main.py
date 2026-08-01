@@ -23,9 +23,11 @@ app = Client(
     session_string=SESSION_STRING
 )
 
+# نام اصلی شما که می‌خواهید کنار ساعت باشد
+MY_NAME = "⚡️"
+
 # تابع تبدیل اعداد به فونت جذاب Double-Struck
 def to_fancy_time(time_str: str) -> str:
-    # فونت توخالی/دوبل شیک
     fancy_digits = {
         '0': '𝟘', '1': '𝟙', '2': '𝟚', '3': '𝟛', '4': '𝟜',
         '5': '𝟝', '6': '𝟞', '7': '𝟟', '8': '𝟠', '9': '𝟡', ':': ':'
@@ -43,13 +45,15 @@ async def update_name_loop():
             # تبدیل به فونت سفارشی
             fancy_time = to_fancy_time(raw_time)
             
-            # فقط زمانی که دقیقه تغییر کند، نام خانوادگی آپدیت می‌شود
+            # فقط زمانی که دقیقه تغییر کند، first_name آپدیت می‌شود
             if fancy_time != last_time:
-                # تنظیم ساعت مستقیم روی last_name بدون ایموجی
-                await app.update_profile(last_name=fancy_time)
+                new_first_name = f"{MY_NAME} {fancy_time}"
+                
+                # قرار دادن ترکیب اسم و ساعت روی first_name
+                await app.update_profile(first_name=new_first_name)
                 
                 last_time = fancy_time
-                print(f"Last Name Updated to: {fancy_time}", flush=True)
+                print(f"First Name Updated to: {new_first_name}", flush=True)
 
         except FloodWait as e:
             print(f"FloodWait: Waiting for {e.value} seconds...", flush=True)
@@ -74,4 +78,3 @@ async def main():
 
 if __name__ == "__main__":
     loop.run_until_complete(main())
-
