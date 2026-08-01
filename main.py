@@ -23,14 +23,14 @@ app = Client(
     session_string=SESSION_STRING
 )
 
-# نام اصلی شما که می‌خواهید کنار ساعت باشد
-MY_NAME = "⚡️"
+# نام اصلی شما در تلگرام
+MY_NAME = "نام شما"
 
-# تابع تبدیل اعداد به فونت جذاب Double-Struck
+# تابع تبدیل اعداد به فونت Mathematical Bold (𝟎 𝟏 𝟐 𝟑 𝟒 𝟓 𝟔 𝟕 𝟖 𝟗)
 def to_fancy_time(time_str: str) -> str:
     fancy_digits = {
-        '0': '𝟘', '1': '𝟙', '2': '𝟚', '3': '𝟛', '4': '𝟜',
-        '5': '𝟝', '6': '𝟞', '7': '𝟟', '8': '𝟠', '9': '𝟡', ':': ':'
+        '0': '𝟎', '1': '𝟏', '2': '𝟐', '3': '𝟑', '4': '𝟒',
+        '5': '𝟓', '6': '𝟔', '7': '𝟕', '8': '𝟖', '9': '𝟗', ':': ':'
     }
     return "".join(fancy_digits.get(char, char) for char in time_str)
 
@@ -49,7 +49,7 @@ async def update_name_loop():
             if fancy_time != last_time:
                 new_first_name = f"{MY_NAME} {fancy_time}"
                 
-                # قرار دادن ترکیب اسم و ساعت روی first_name
+                # قرار دادن اسم و ساعت با هم روی first_name
                 await app.update_profile(first_name=new_first_name)
                 
                 last_time = fancy_time
