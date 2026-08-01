@@ -24,7 +24,7 @@ app = Client(
 )
 
 # نام اصلی شما در تلگرام
-MY_NAME = "نام شما"
+MY_NAME = ""
 
 # تابع تبدیل اعداد به فونت Mathematical Bold (𝟎 𝟏 𝟐 𝟑 𝟒 𝟓 𝟔 𝟕 𝟖 𝟗)
 def to_fancy_time(time_str: str) -> str:
